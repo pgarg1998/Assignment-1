@@ -1,0 +1,84 @@
+---
+title: "Assignment-1"
+author: "Team-2"
+date: "2023-02-09"
+output: pdf_document
+Footer: hello
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(readxl)
+Spotify <- read_excel("E:/Piyush Files/SEM 2/Intro to Analytics Systems/Assignment 1/archive/Spotify.xlsx")
+str(Spotify)
+```
+```{r}
+names(Spotify)
+```
+```{r}
+head(Spotify,n=15)
+```
+```{r}
+myfunc<- function(x)
+{
+print(Spotify[ , c("Artist Name", "Song Name")],n=5)
+}
+myfunc()
+```
+```{r}
+Samplenew = as.data.frame(filter(Spotify,Spotify$"Peak Position" == 5))
+print(Samplenew)
+```
+```{r}
+print(cbind(Spotify$"Song Name",Spotify$"Peak Position"))
+```
+```{r}
+na.omit(Spotify)
+```
+
+```{r}
+Spotify$"Artist Name"[duplicated(Spotify$"Artist Name")]
+print(Spotify%>%distinct(Spotify$"Artist Name", .keep_all = TRUE))
+```
+```{r}
+Spotify%>%arrange(desc(Spotify$"Position"))
+```
+```{r}
+Spotify%>%arrange(desc(Days))
+```
+```{r}
+Spotify%>%rename(Years = Days, ID = Position)
+```
+```{r}
+Spotify%>%mutate(Dividend = Days*2)
+```
+```{r}
+set.seed(1234)
+Spotify%>%sample_n(5,replace = FALSE)
+```
+```{r}
+summary(Spotify)
+```
+```{r}
+mean(Spotify$"Days")
+```
+```{r}
+median(Spotify$"Days")
+```
+```{r}
+mode(Spotify$"Days")
+```
+```{r}
+range(Spotify$"Days")
+```
+```{r}
+ggplot(Spotify, aes(x = Days, y = Position)) + geom_point(size=1.2, color = "Red", shape=21)
+```
+```{r}
+ggplot(data = Spotify, aes(x = Days, fill = factor(Position)))+geom_bar()
+```
+```{r}
+ggplot(data = Spotify, aes(x = Days, y = Position))+geom_smooth()
+```
